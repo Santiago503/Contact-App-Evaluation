@@ -30,6 +30,6 @@ App
         
         contact
 
-assets
-    data
+Assets
+    Data
         dataContactInit
