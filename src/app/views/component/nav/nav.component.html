@@ -1,1 +1,16 @@
-<p>nav works!</p>
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+
+      <h1>App Contact</h1>
+
+
+      <div align="end">
+        <a mat-button [routerLink]="'/dashboard'"> Dashboard </a>
+        <a mat-button [routerLink]="'/contacts'"> Contacts </a>
+        <a mat-button [routerLink]="'/contacts/create-contact'"> Create Contact </a>
+      </div>
+
+    </mat-toolbar-row>
+
+
+</mat-toolbar>

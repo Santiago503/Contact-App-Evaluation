@@ -4,21 +4,28 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## structury
 
+
+
+structury
+
 Views
+    component
+        nav
+        footer
 
     dashboard
         dashboard
 
     contact
-        ListContact
-        CreateUpdateContact
+        CreateContact
     
-
-
 Model
+
     contact
         contactModel
 
-
 Service
+    
+    dashboard
+    
     contact
