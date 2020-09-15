@@ -31,7 +31,7 @@ const routes: Routes = [
         }
       },
       {
-        path: 'edit-contact',
+        path: 'edit-contact/:idcontact',
         component: CreateUpdateContactComponent,
         data: {
           title: 'Editar Contacto'
