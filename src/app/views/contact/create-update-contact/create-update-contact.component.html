@@ -1,1 +1,112 @@
-<p>create-update-contact works!</p>
+
+
+<mat-card class="w-50 container justify-content-center center">
+
+    <h2>{{title}}</h2>
+
+
+    <div class="p-2">
+        <form [formGroup]="this.contactForm" autocomplete="off" class="row">
+
+            <div class="row w-100">
+
+                <mat-form-field appearance="outline" class="w-50">
+
+                    <mat-label>Nombre Completo</mat-label>
+
+                    <input matInput #fullname formControlName="fullName" />
+                    <mat-hint align="end">{{fullname.value?.length || 0}}/20</mat-hint>
+
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-50">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email">
+
+                    <!-- <mat-error
+                        *ngIf="contactForm.controls.get('email').hasError('email') && !contactForm.hasError('required')">
+                        Please enter a valid email address
+                    </mat-error>
+                    <mat-error *ngIf="this.contactForm.hasError('required')">
+                        Email is <strong>required</strong>
+                    </mat-error> -->
+
+                </mat-form-field>
+
+            </div>
+
+
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Informacion del Trabajo</mat-label>
+                <textarea formControlName="infoContact" matInput placeholder="Ex. Lugar de trabajo"></textarea>
+            </mat-form-field>
+
+            <hr />
+
+            <div formArrayName="mobiles" >
+
+                    <div class="example-button-container">
+                        <button type="button" mat-fab color="primary" alt="Agregar Telefono" (click)="addMobiles()" >
+                          <mat-icon>add</mat-icon>
+                        </button>
+                    </div>
+
+                    <div *ngFor="let item of  GetMobiles.controls; let i = index;" class="w-100">
+
+                            <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Telefono {{i+1}}</mat-label>
+                                        <input
+                                        matInput
+                                        [formControlName]="i"/>
+                            </mat-form-field>
+                            
+                    </div>
+            </div>
+
+            <mat-error>
+                <p *ngIf="CampRequired('fullName')">
+                    El Nombre es Requerido
+                </p>
+
+                <p *ngIf="CampNotValid('fullName')">
+                    El Nombre no es Valido
+                </p>
+
+                <p *ngIf="CampMaxLenght('fullName',20)">
+                    El Nombre  es muy largo
+                </p>
+
+                <p *ngIf="CampNotValid('email')">
+                    Por favor introduzca un correo valido
+                </p>
+
+                <p *ngIf="CampNotValid('mobiles')">
+                    El Telefono es Requerido
+                </p>
+                
+            </mat-error>
+
+
+        </form>
+
+    </div>
+
+    <div align="end">
+        <button mat-button routerLink="/contacts" class="mp-1">Volver</button>
+        <button mat-raised-button color="warn" class="mp-1">Nuevo</button>
+        <button mat-raised-button color="accent" class="mp-1" (click)="ValidateForm()" >Guardar</button>
+    </div>
+
+
+</mat-card>
+
+
+
+
+
+
+
+
+
+
+

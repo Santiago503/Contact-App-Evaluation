@@ -18,7 +18,7 @@ export class ListContactComponent implements OnInit {
   
   constructor(public contactService: ContactService,private route: ActivatedRoute) {
     this.title = route.snapshot.data['title'];
-    this.dataContact = this.contactService.Contacts;
+    this.dataContact = this.contactService.ContactStorage;
    }
 
   ngOnInit(): void {
@@ -26,5 +26,15 @@ export class ListContactComponent implements OnInit {
   }
 
 
+
+  deleteContact(Contact) {
+    this.contactService.deleteContact(Contact);
+  }
   
+
+  editContact(resourceForm: any) {
+      this.contactService.OnPreEdit(resourceForm);
+  }
+
+
 }

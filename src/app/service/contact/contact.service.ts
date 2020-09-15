@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ContactInterface } from 'src/app/model/contact';
 
 
@@ -8,37 +9,9 @@ import { ContactInterface } from 'src/app/model/contact';
   providedIn: 'root'
 })
 export class ContactService {
-  Contacts: ContactInterface[];
+  ContactStorage: any[];
 
-  constructor(private fb: FormBuilder, private http: HttpClient) { }
-
-  // Form
-  contactForm  = this.fb.group({
-
-    fullName:     ['', Validators.required],
-    email:        ['', Validators.email],
-    infoContact:  [''],
-    mobiles:      this.fb.array([
-                    this.createItemMobiles()
-                  ])
-
-  });
-
-  addItemMobiles(): void {
-
-    (<FormArray>this.contactForm.get("mobiles")).push( this.createItemMobiles()  );
-
-  }
-
-  createItemMobiles() {
-    return this.fb.group({
-      mobiles: ['', Validators.required]
-    });
-  }
-  // End Form
-
-
-
+  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) { }
 
   // data archiv json
   public getDataContactArchivJson() {
@@ -47,14 +20,13 @@ export class ContactService {
     .subscribe(
       (resp : ContactInterface[]) => {
 
-        this.Contacts = resp;
+        this.ContactStorage = resp;
         console.log(resp)
       }
 
     )
 
   }
-
 
   getContacts() {
     if(localStorage.getItem('Contacts') === null) {
@@ -63,37 +35,55 @@ export class ContactService {
 
     } else {
 
-      this.Contacts = JSON.parse(localStorage.getItem('Contacts'));
+      this.ContactStorage = JSON.parse(localStorage.getItem('Contacts'));
       
     }
-    return this.Contacts;
+    return this.ContactStorage;
   }
 
-  // addTask(Contact: ContactInterface) {
-  //   this.Contacts.push(Contact);
-  //   let Contacts = [];
-  //   if(localStorage.getItem('Contacts') === null) {
-  //     Contacts = [];
-  //     Contacts.push(Contact);
-  //     localStorage.setItem('Contacts', JSON.stringify(Contacts));
-  //   } else {
-  //     Contacts = JSON.parse(localStorage.getItem('Contacts'));
-  //     Contacts.push(Contact); 
-  //     localStorage.setItem('Contacts', JSON.stringify(Contacts));
-  //   }
-  // }
+  addContact(ContactForm: ContactInterface) {
+    this.ContactStorage.push(ContactForm);
+    let Contacts = [];
+    if(localStorage.getItem('Contacts') === null) { //sto es null
 
-  // deleteTask(Contact: ContactInterface) {
+      Contacts = [];
+      Contacts.push(ContactForm);
+      localStorage.setItem('Contacts', JSON.stringify(Contacts));
 
-  //   for (let i = 0; i < this.Contacts.length; i++) {
-  //     if (Contact == this.Contacts[i]) {
-  //       this.Contacts.splice(i, 1);
-  //       localStorage.setItem('Contacts', JSON.stringify(this.Contacts));
-  //     }
-  //   }
+    } else {
 
-  // }
+      Contacts = JSON.parse(localStorage.getItem('Contacts'));
+      Contacts.push(ContactForm); 
+      localStorage.setItem('Contacts', JSON.stringify(Contacts));
 
+    }
+  }
+
+
+  deleteContact(Contact) {
+
+      for (let i = 0; i < this.ContactStorage.length; i++) {
+      if (Contact == this.ContactStorage[i]) {
+        this.ContactStorage.splice(i, 1);
+        localStorage.setItem('Contacts', JSON.stringify(this.ContactStorage));
+      }
+    }
+
+  }
+
+  OnPreEdit(Contact) {
+
+    for (let i = 0; i < this.ContactStorage.length; i++) {
+    if (Contact == this.ContactStorage[i]) {
+      this.router.navigateByUrl(`/contacts/create-contact/${Contact.idcontact}`);
+      console.log(this.ContactStorage[i]);
+
+      // this.ContactStorage.splice(i, 1);
+      // localStorage.setItem('Contacts', JSON.stringify(this.ContactStorage));
+    }
+  }
+
+}
 
 
 }
