@@ -1,1 +1,46 @@
-<p>list-contact works!</p>
+<mat-toolbar class="m-3">
+    <p>{{this.title}}</p>
+</mat-toolbar>
+
+
+
+<mat-card class="container justify-content-center center">
+    <mat-selection-list [multiple]="false">
+
+        <mat-list-option *ngFor="let contact of this.contactService.Contacts">
+
+            <mat-grid-list cols="4" rowHeight="60px">
+
+                <mat-grid-tile colspan="3" rowspan="1" class="Text">
+
+                    <h2 class="mp-0">
+                        {{ contact.fullName}}
+                    </h2>
+
+                    {{contact.email}}
+
+                </mat-grid-tile>
+
+                <mat-grid-tile colspan="1" rowspan="1">
+                    <div align="end">
+                        <button mat-raised-button color="accent" class="mp-3">Editar</button>
+                        <button mat-raised-button color="warn" class="mp-3">Delete</button>
+                    </div>
+                </mat-grid-tile>
+
+            </mat-grid-list>
+
+        </mat-list-option>
+
+    </mat-selection-list>
+</mat-card>
+
+
+
+<div class="example-button-container">
+    <button mat-fab color="primary" routerLink="/contacts/create-contact" class="float">
+        <mat-icon>add</mat-icon>
+    </button>
+</div>
+
+

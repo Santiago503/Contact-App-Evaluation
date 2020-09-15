@@ -8,6 +8,8 @@ import { FooterComponent } from './views/component/footer/footer.component';
 import { MaterialModule } from '../app/material/material.module';
 import { AppRoutingModule  } from './app-routing.module';
 import { P404Component } from './views/component/p404/p404.component'
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,10 @@ import { P404Component } from './views/component/p404/p404.component'
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    MaterialModule
+    MaterialModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

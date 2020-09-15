@@ -7,25 +7,29 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 
 structury
+App
+    Views
+        component
+            nav
+            footer
 
-Views
-    component
-        nav
-        footer
-
-    dashboard
         dashboard
+            dashboard
 
-    contact
-        CreateContact
-    
-Model
+        contact
+            CreateContact
+        
+    Model
 
-    contact
-        contactModel
+        contact
+            contactModel
 
-Service
-    
-    dashboard
-    
-    contact
+    Service
+        
+        dashboard
+        
+        contact
+
+assets
+    data
+        dataContactInit
