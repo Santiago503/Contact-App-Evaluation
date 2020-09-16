@@ -41,6 +41,7 @@ export class ContactService {
   }
 
   addContact(ContactForm: ContactInterface) {
+
     this.ContactStorage.push(ContactForm);
     let Contacts = [];
     if(localStorage.getItem('Contacts') === null) { //sto es null
@@ -54,6 +55,21 @@ export class ContactService {
       Contacts = JSON.parse(localStorage.getItem('Contacts'));
       Contacts.push(ContactForm); 
       localStorage.setItem('Contacts', JSON.stringify(Contacts));
+    }
+
+  }
+
+  updateContact(Contact) {
+
+    for (let i = 0; i < this.ContactStorage.length; i++) {
+
+      if (Contact.idcontact == this.ContactStorage[i].idcontact) {
+
+        this.ContactStorage.splice(i, 1);
+        this.ContactStorage.push(Contact);
+        localStorage.setItem('Contacts', JSON.stringify(this.ContactStorage));
+
+      }
 
     }
   }
@@ -63,8 +79,10 @@ export class ContactService {
 
     for (let i = 0; i < this.ContactStorage.length; i++) {
       if (Contact == this.ContactStorage[i]) {
+
         this.ContactStorage.splice(i, 1);
         localStorage.setItem('Contacts', JSON.stringify(this.ContactStorage));
+
       }
     }
 

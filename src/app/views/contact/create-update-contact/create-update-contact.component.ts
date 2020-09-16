@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ContactInterface } from 'src/app/model/contact';
 import { ContactService } from 'src/app/service/contact/contact.service';
 import Swal from 'sweetalert2';
 import uid from 'uid';
@@ -11,7 +12,6 @@ import uid from 'uid';
 })
 export class CreateUpdateContactComponent implements OnInit {
   title: string;
-  
   
   constructor(public contactService: ContactService,
               private route: ActivatedRoute,
@@ -30,9 +30,8 @@ export class CreateUpdateContactComponent implements OnInit {
     );
 
   }
-
     // Form
-    contactForm  = this.fb.group({
+  contactForm = this.fb.group({
       idcontact:    [0],
       fullName:     ['', [Validators.required,Validators.maxLength(20), Validators.pattern('^[a-zA -Z]+$')]],
       email:        ['', [ Validators.required,Validators.email]],
@@ -116,17 +115,21 @@ export class CreateUpdateContactComponent implements OnInit {
 
   CreateUpdateContact() {
 
-    if(this.contactForm.value.id == 0 || this.contactForm.value.id == undefined || this.contactForm.value.id == null){
-
+    if(this.contactForm.value.idcontact == 0 || this.contactForm.value.idcontact == undefined || this.contactForm.value.idcontact == null){
+      console.log(this.contactForm.value.id);
       this.contactForm.value.idcontact = uid(6); //Asign Id
       this.contactService.addContact(this.contactForm.value);
       this.clearContact();
       this.router.navigate(['/contacts/list-contact'])
 
     }else{
-
+      console.log(this.contactForm.value);
+      this.contactService.updateContact(this.contactForm.value);
+      this.clearContact();
+      this.router.navigate(['/contacts/list-contact'])
 
     }
+
   }
 
 
